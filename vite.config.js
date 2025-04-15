@@ -8,14 +8,16 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.js'],
   },
-  server: {
-    port: 3000,
-    strictPort: true,
-  },
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
   },
-  base: '/',
+  server: {
+    headers: {
+      'Content-Type': 'application/javascript'
+    }
+  }
 });
