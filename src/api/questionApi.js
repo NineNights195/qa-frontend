@@ -37,7 +37,9 @@ export const fetchQuestionById = async (id) => {
  */
 export const fetchCategories = async () => {
   try {
+    console.log(`${API_BASE_URL}/category`)
     const response = await axios.get(`${API_BASE_URL}/category`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);

@@ -20,9 +20,11 @@ const CreateQuestionForm = ({ onSubmit, onCancel }) => {
 
   useEffect(() => {
     const getCategories = async () => {
+      console.log("Create question form")
       try {
         const data = await fetchCategories();
         // Ensure data is an array
+        console.log(data)
         setCategories(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
