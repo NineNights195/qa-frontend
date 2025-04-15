@@ -9,15 +9,12 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.js'],
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true
   },
   server: {
-    headers: {
-      'Content-Type': 'application/javascript'
-    }
+    port: 3000,
+    open: true
   }
 });
