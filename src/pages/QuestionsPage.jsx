@@ -76,6 +76,7 @@ const QuestionsPage = () => {
     setCreateError(null);
     
     try {
+      console.log(formData)
       await createQuestion(formData);
       // Refresh the questions list
       const updatedQuestions = await fetchQuestions();

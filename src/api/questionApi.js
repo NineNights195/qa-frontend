@@ -57,6 +57,7 @@ export const fetchCategories = async () => {
  */
 export const createQuestion = async (questionData) => {
   try {
+    console.log(questionData)
     const response = await axios.post(`${API_BASE_URL}/question`, questionData);
     return response.data;
   } catch (error) {
