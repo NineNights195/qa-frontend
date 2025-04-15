@@ -25,9 +25,11 @@ const QuestionsPage = () => {
     const getQuestions = async () => {
       try {
         const data = await fetchQuestions();
-        setQuestions(data);
+        // Ensure data is an array
+        setQuestions(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
+        console.error('Error fetching questions:', err);
         setError('Failed to fetch questions. Please try again later.');
         setLoading(false);
       }
@@ -47,6 +49,7 @@ const QuestionsPage = () => {
       setQuestionDetail(data);
       setDetailLoading(false);
     } catch (err) {
+      console.error('Error fetching question details:', err);
       setDetailError('Failed to fetch question details. Please try again later.');
       setDetailLoading(false);
     }
@@ -76,10 +79,11 @@ const QuestionsPage = () => {
       await createQuestion(formData);
       // Refresh the questions list
       const updatedQuestions = await fetchQuestions();
-      setQuestions(updatedQuestions);
+      setQuestions(Array.isArray(updatedQuestions) ? updatedQuestions : []);
       setCreateLoading(false);
       setIsCreateModalOpen(false);
     } catch (err) {
+      console.error('Error creating question:', err);
       setCreateError('Failed to create question. Please try again later.');
       setCreateLoading(false);
     }
@@ -96,6 +100,7 @@ const QuestionsPage = () => {
         setQuestionDetail(data);
         setDetailLoading(false);
       } catch (err) {
+        console.error('Error refreshing question details:', err);
         setDetailError('Failed to refresh question details. Please try again later.');
         setDetailLoading(false);
       }
@@ -128,12 +133,12 @@ const QuestionsPage = () => {
         <div className="grid gap-4">
           {questions.map((question) => (
             <QuestionCard
-              key={question.id}
-              id={question.id}
+              key={question.ID}
+              id={question.ID}
               title={question.title}
               question={question.question}
               category={question.category}
-              createdAt={question.created_at}
+              createdAt={question.CreatedAt}
               onClick={handleQuestionClick}
             />
           ))}
