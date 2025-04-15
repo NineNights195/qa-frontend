@@ -22,9 +22,11 @@ const CreateQuestionForm = ({ onSubmit, onCancel }) => {
     const getCategories = async () => {
       try {
         const data = await fetchCategories();
-        setCategories(data);
+        // Ensure data is an array
+        setCategories(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
+        console.error('Error fetching categories:', err);
         setError('Failed to fetch categories. Please try again later.');
         setLoading(false);
       }
@@ -70,7 +72,7 @@ const CreateQuestionForm = ({ onSubmit, onCancel }) => {
         >
           <option value="">Select a category</option>
           {categories.map(category => (
-            <option key={category.id} value={category.id}>
+            <option key={category.ID} value={category.ID}>
               {category.category}
             </option>
           ))}
