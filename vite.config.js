@@ -8,4 +8,14 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.js'],
   },
+  server: {
+    port: 3000,
+    strictPort: true,
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true,
+  },
+  base: '/',
 });
