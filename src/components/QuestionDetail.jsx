@@ -56,6 +56,9 @@ const QuestionDetail = ({ question, loading, error, onAnswerCreated }) => {
     return <p className="text-gray-500">No question details available.</p>;
   }
 
+  // Ensure answers is always an array
+  const answers = Array.isArray(question.answers) ? question.answers : [];
+
   return (
     <div>
       <div className="mb-6">
@@ -79,9 +82,9 @@ const QuestionDetail = ({ question, loading, error, onAnswerCreated }) => {
           </button>
         </div>
         
-        {question.answers && question.answers.length > 0 ? (
+        {answers.length > 0 ? (
           <div className="space-y-4">
-            {question.answers.map((answer) => (
+            {answers.map((answer) => (
               <div key={answer.ID} className="bg-gray-50 p-4 rounded-md">
                 <p className="text-gray-700">{answer.answer}</p>
                 <div className="text-xs text-gray-500 mt-2">
