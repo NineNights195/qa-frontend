@@ -1,14 +1,23 @@
-import { useState, useEffect } from 'react';
-import { fetchQuestions, fetchQuestionById, createQuestion } from '../api/questionApi';
-import { QuestionCard, LoadingSpinner, ErrorMessage, Modal } from '../components/ui';
-import QuestionDetail from '../components/QuestionDetail';
-import CreateQuestionForm from '../components/CreateQuestionForm';
+import { useState, useEffect } from "react";
+import {
+  fetchQuestions,
+  fetchQuestionById,
+  createQuestion,
+} from "../api/questionApi";
+import {
+  QuestionCard,
+  LoadingSpinner,
+  ErrorMessage,
+  Modal,
+} from "../components/ui";
+import QuestionDetail from "../components/QuestionDetail";
+import CreateQuestionForm from "../components/CreateQuestionForm";
 
 const QuestionsPage = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
@@ -29,8 +38,8 @@ const QuestionsPage = () => {
         setQuestions(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching questions:', err);
-        setError('Failed to fetch questions. Please try again later.');
+        console.error("Error fetching questions:", err);
+        setError("Failed to fetch questions. Please try again later.");
         setLoading(false);
       }
     };
@@ -43,14 +52,16 @@ const QuestionsPage = () => {
     setIsModalOpen(true);
     setDetailLoading(true);
     setDetailError(null);
-    
+
     try {
       const data = await fetchQuestionById(id);
       setQuestionDetail(data);
       setDetailLoading(false);
     } catch (err) {
-      console.error('Error fetching question details:', err);
-      setDetailError('Failed to fetch question details. Please try again later.');
+      console.error("Error fetching question details:", err);
+      setDetailError(
+        "Failed to fetch question details. Please try again later."
+      );
       setDetailLoading(false);
     }
   };
@@ -74,18 +85,19 @@ const QuestionsPage = () => {
   const handleCreateQuestion = async (formData) => {
     setCreateLoading(true);
     setCreateError(null);
-    
+
     try {
-      console.log(formData)
+      console.log(formData);
       await createQuestion(formData);
       // Refresh the questions list
       const updatedQuestions = await fetchQuestions();
       setQuestions(Array.isArray(updatedQuestions) ? updatedQuestions : []);
+      console.log("updatedQuestions", questions);
       setCreateLoading(false);
       setIsCreateModalOpen(false);
     } catch (err) {
-      console.error('Error creating question:', err);
-      setCreateError('Failed to create question. Please try again later.');
+      console.error("Error creating question:", err);
+      setCreateError("Failed to create question. Please try again later.");
       setCreateLoading(false);
     }
   };
@@ -95,14 +107,16 @@ const QuestionsPage = () => {
     if (selectedQuestionId) {
       setDetailLoading(true);
       setDetailError(null);
-      
+
       try {
         const data = await fetchQuestionById(selectedQuestionId);
         setQuestionDetail(data);
         setDetailLoading(false);
       } catch (err) {
-        console.error('Error refreshing question details:', err);
-        setDetailError('Failed to refresh question details. Please try again later.');
+        console.error("Error refreshing question details:", err);
+        setDetailError(
+          "Failed to refresh question details. Please try again later."
+        );
         setDetailLoading(false);
       }
     }
@@ -127,19 +141,19 @@ const QuestionsPage = () => {
           Create Question
         </button>
       </div>
-      
+
       {questions.length === 0 ? (
         <p className="text-gray-500">No questions found.</p>
       ) : (
         <div className="grid gap-4">
-          {questions.map((question) => (
+          {questions.map((question, index) => (
             <QuestionCard
-              key={question.ID}
+              key={question.ID || `question-${index}`}
               id={question.ID}
               title={question.title}
               question={question.question}
               category={question.category}
-              createdAt={question.CreatedAt}
+              createdAt={question.created_at}
               onClick={handleQuestionClick}
             />
           ))}
@@ -147,12 +161,12 @@ const QuestionsPage = () => {
       )}
 
       {/* Question Detail Modal */}
-      <Modal 
-        isOpen={isModalOpen} 
+      <Modal
+        isOpen={isModalOpen}
         onClose={handleCloseModal}
         title="Question Details"
       >
-        <QuestionDetail 
+        <QuestionDetail
           question={questionDetail}
           loading={detailLoading}
           error={detailError}
@@ -180,4 +194,4 @@ const QuestionsPage = () => {
   );
 };
 
-export default QuestionsPage; 
+export default QuestionsPage;

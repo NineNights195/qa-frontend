@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * A reusable card component for displaying a question
@@ -11,9 +11,16 @@ import React from 'react';
  * @param {Function} props.onClick - Function to call when the card is clicked
  * @returns {JSX.Element} QuestionCard component
  */
-const QuestionCard = ({ id, title, question, category, createdAt, onClick }) => {
+const QuestionCard = ({
+  id,
+  title,
+  question,
+  category,
+  createdAt,
+  onClick,
+}) => {
   return (
-    <div 
+    <div
       className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow"
       onClick={() => onClick(id)}
     >
@@ -28,4 +35,4 @@ const QuestionCard = ({ id, title, question, category, createdAt, onClick }) => 
   );
 };
 
-export default QuestionCard; 
+export default QuestionCard;

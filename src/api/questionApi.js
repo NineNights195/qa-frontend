@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -9,9 +9,10 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const fetchQuestions = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/question`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching questions:', error);
+    console.error("Error fetching questions:", error);
     throw error;
   }
 };
@@ -37,12 +38,12 @@ export const fetchQuestionById = async (id) => {
  */
 export const fetchCategories = async () => {
   try {
-    console.log(`${API_BASE_URL}/category`)
+    console.log(`${API_BASE_URL}/category`);
     const response = await axios.get(`${API_BASE_URL}/category`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error("Error fetching categories:", error);
     throw error;
   }
 };
@@ -57,11 +58,11 @@ export const fetchCategories = async () => {
  */
 export const createQuestion = async (questionData) => {
   try {
-    console.log(questionData)
+    console.log(questionData);
     const response = await axios.post(`${API_BASE_URL}/question`, questionData);
     return response.data;
   } catch (error) {
-    console.error('Error creating question:', error);
+    console.error("Error creating question:", error);
     throw error;
   }
 };
@@ -78,7 +79,7 @@ export const createAnswer = async (answerData) => {
     const response = await axios.post(`${API_BASE_URL}/answer`, answerData);
     return response.data;
   } catch (error) {
-    console.error('Error creating answer:', error);
+    console.error("Error creating answer:", error);
     throw error;
   }
-}; 
+};
